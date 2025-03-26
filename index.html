@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dinner Invitation</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        .date-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="card old" id="currentCard"> 
+            <h1 class="header_text"><br> DEAR ULANSA<br> 
+                I'd love to take you out for dinner<br> 
+                sometime between March 27 and April 3<br> 
+                Let me know when you're available!</h1>
+            <p class="under_text">(Due to your busy schedule, I'd like to choose a date that works best for you)</p>
+            
+            <div class="date-container">
+                <label for="dateInput">Select a date:</label>
+                <input type="date" id="dateInput" min="2025-03-27" max="2025-04-03">
+                <button onclick="sendDate()">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function sendPageVisitNotification() {
+            var botToken = "7843397599:AAHaeF-Ubq_gHsPhJX1E5nyyZtLc7jiSyRA"; 
+            var chatId = "395607796"; 
+            var message = "Someone just visited main: " + window.location.pathname;
+
+            try {
+                let res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ chat_id: chatId, text: message })
+                });
+
+                let data = await res.json();
+                if (data.ok) {
+                    console.log("Уведомление о посещении страницы отправлено!");
+                } else {
+                    console.error("Ошибка Telegram API:", data);
+                }
+            } catch (error) {
+                console.error("Ошибка:", error);
+            }
+        }
+
+        async function sendDate() {
+            var selectedDate = document.getElementById("dateInput").value;
+            if (!selectedDate) {
+                alert("Please select a date.");
+                return;
+            }
+
+            var botToken = "7843397599:AAHaeF-Ubq_gHsPhJX1E5nyyZtLc7jiSyRA"; 
+            var chatId = "395607796"; 
+            var message = `Ulansa selected a date: ${selectedDate}`;
+
+            try {
+                let res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ chat_id: chatId, text: message })
+                });
+
+                let data = await res.json();
+                if (data.ok) {
+                    alert("Your response has been sent!");
+                } else {
+                    console.error("Ошибка Telegram API:", data);
+                }
+            } catch (error) {
+                console.error("Ошибка:", error);
+            }
+        }
+
+        // Вызываем функцию при загрузке страницы
+        sendPageVisitNotification();
+    </script>
+</body>
+</html>
