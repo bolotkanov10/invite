@@ -2,20 +2,11 @@ body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     padding: 20px;
-    background-color: #b92626;
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
 }
 
-.content-container {
-    max-width: 600px; /* Делаем текстовый блок уже */
-    width: 90%; /* Чтобы адаптировалось на мобильных */
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: justify;
-}
 
 .text-content {
     font-size: 16px;
